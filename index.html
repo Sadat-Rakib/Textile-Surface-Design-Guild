@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Textile Surface Design Guild </title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        /* Color palette - Brown and Green */
+        --primary-brown: #97878E;
+        --dark-brown: #7D6B75;
+        --light-brown: #B89FA0;
+        --primary-green: #7B9981;
+        --dark-green: #5F7A6B;
+        --light-green: #A8C5B0;
+        --warm-cream: #F5F0E8;
+        --warm-accent: #D4A574;
+        --white: #ffffff;
+        --charcoal: #3A3A3A;
+        --light-sage: #9BB3A3;
+        --soft-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --soft-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.12);
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        color: var(--charcoal);
+        line-height: 1.8;
+        font-size: 1.05rem;
+        background: #ffffff; 
+        min-height: 100vh;
+      }
+
+      /* Navigation */
+      nav {
+        background: var(--white); /* CHANGED: Reverted to white */
+        -webkit-backdrop-filter: saturate(120%) blur(6px);
+        backdrop-filter: saturate(120%) blur(6px);
+        padding: 1rem 3%; 
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        border-bottom: 2px solid var(--primary-green);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 15px; 
+      }
+
+      /* New container for stacking logo text */
+      .logo-text-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .logo img {
+        height: 80px; /* Slightly adjusted to balance with 2 lines of text */
+        width: auto;
+        transition: transform 0.3s ease;
+      }
+
+      .logo img:hover {
+        transform: scale(1.05);
+      }
+
+      /* CHANGED: Smaller font, one line */
+      .guild-name {
+        font-family: "Georgia", serif;
+        font-size: 1.4rem; 
+        font-weight: bold;
+        color: var(--charcoal);
+        line-height: 1.1;
+        white-space: nowrap; /* Forces one line */
+      }
+
+      /* CHANGED: New style for location in navbar */
+      .guild-location-nav {
+        font-family: "Verdana", sans-serif;
+        font-size: 0.9rem;
+        color: var(--primary-green);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 2px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem; 
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--charcoal);
+        font-size: 1.6rem;
+        letter-spacing: 1px;
+        transition: color 0.3s, opacity 0.3s;
+        font-family: "Georgia", serif;
+        position: relative;
+        padding-bottom: 4px;
+        font-weight: 500;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-green);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary-green), var(--warm-accent));
+        transition: width 0.25s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 2px;
+        background: var(--charcoal);
+        transition: 0.3s;
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 85vh;
+        background-image: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.15),
+          rgba(0, 0, 0, 0.25)
+        ), url('cover photo.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+         
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.35)
+        );
+        z-index: 1;
+      }
+
+      .hero-content {
+        text-align: center;
+        color: #000000;
+        max-width: 1200px;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        /* Gap removed here, handled by margin on quote for specific spacing request */
+        gap: 0; 
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8),
+                      -2px -2px 4px rgba(255, 255, 255, 0.8),
+                      2px -2px 4px rgba(255, 255, 255, 0.8),
+                      -2px 2px 4px rgba(255, 255, 255, 0.8);
+        animation: fadeIn 0.8s ease-in;
+        padding: 0 20px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Styles for reordered Hero Text */
+      .hero-quote {
+        /* CHANGED: Bigger and Italicized */
+        font-size: 3.5rem;
+        font-family: "Segoe UI", "Verdana", sans-serif; 
+        font-weight: 600;
+        font-style: italic; /* Added Italic */
+        color: #ffffff;
+        text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.95);
+        margin: 0 0 3.5rem 0; /* Added large bottom margin for spacing */
+        line-height: 1.2;
+      }
+
+      .hero-location {
+        font-size: 1.8rem;
+        font-family: "Verdana", sans-serif;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #ffffff;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.95);
+        margin: 0;
+        margin-top: 0.5rem; /* Small space between title and location */
+      }
+
+      .hero-title {
+        /* CHANGED: Made smaller to fit on one line */
+        font-size: 3.2rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #ffffff;
+        font-family: "Georgia", serif;
+        text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.95);
+        line-height: 1.1;
+        margin: 0;
+        white-space: nowrap; /* Forces one line */
+      }
+
+      .vision-statement {
+        font-size: 1.8rem;
+        font-style: italic;
+        color: #000000;
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 2.5rem;
+        background: rgba(255, 255, 255, 0.35);
+        border: 4px solid var(--warm-accent);
+        margin-top: 2rem;
+        border-radius: 12px;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.9),
+                      -1px -1px 3px rgba(255, 255, 255, 0.9);
+      }
+
+      /* Section Styles */
+      .section {
+        padding: 6rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-size: 3.2rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--primary-green);
+        font-weight: normal;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 3px;
+        margin: 0.8rem auto 0;
+        background: linear-gradient(90deg, var(--primary-green), var(--warm-accent));
+        border-radius: 2px;
+        opacity: 0.8;
+      }
+
+      /* About Section */
+      #about {
+        background: linear-gradient(
+          180deg,
+          rgba(168, 197, 176, 0.15) 0%,
+          rgba(184, 159, 160, 0.15) 50%,
+          rgba(168, 197, 176, 0.1) 100%
+        );
+      }
+
+      /* Image Text Overlay Sections */
+      .image-text-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        margin-bottom: 2rem;
+        border-radius: 0; 
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .image-text-section.our-story-section {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(168, 197, 176, 0.08) 100%);
+      }
+
+      .image-text-section.where-we-meet-section {
+        background: linear-gradient(90deg, rgba(184, 159, 160, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+      }
+
+      .image-side {
+        background: var(--primary-green);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .image-side::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(151, 135, 142, 0.15),
+          rgba(123, 153, 141, 0.1)
+        );
+        z-index: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      .image-side:hover::before {
+        opacity: 0.5;
+      }
+
+      .image-side img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease, filter 0.6s ease;
+        display: block;
+      }
+
+      .image-side:hover img {
+        transform: scale(1.05);
+        filter: saturate(110%) contrast(105%);
+      }
+
+      .text-side {
+        padding: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 900px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 240, 232, 0.95) 50%, rgba(255, 255, 255, 0.96) 100%);
+      }
+
+      .text-side h2 {
+        font-size: 2.7rem;
+        color: var(--primary-brown);
+        margin-bottom: 1.5rem;
+        font-weight: normal;
+        letter-spacing: 2px;
+      }
+
+      .text-side p {
+        color: var(--charcoal);
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        line-height: 1.8;
+      }
+
+      /* Gallery Cards */
+      .gallery-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .gallery-card {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 1;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: var(--soft-shadow);
+        border: 2px solid var(--light-brown);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .gallery-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--soft-shadow-lg);
+        border-color: var(--primary-green);
+      }
+
+      .gallery-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+
+      .gallery-card:hover img {
+        transform: scale(1.1);
+      }
+
+      .gallery-card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(151, 135, 142, 0.85),
+          rgba(123, 153, 141, 0.85)
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        padding: 2rem;
+      }
+
+      .gallery-card:hover .gallery-card-overlay {
+        opacity: 1;
+      }
+
+      .gallery-card-overlay h3 {
+        color: var(--white);
+        font-size: 1.7rem;
+        font-weight: normal;
+        margin-bottom: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .gallery-card-overlay p {
+        color: var(--warm-cream);
+        font-size: 1.3rem;
+        font-style: italic;
+        letter-spacing: 0.5px;
+      }
+
+      /* Gallery Section Background */
+      #gallery {
+        background: linear-gradient(
+          180deg,
+          rgba(168, 197, 176, 0.12) 0%,
+          rgba(184, 159, 160, 0.1) 50%,
+          rgba(168, 197, 176, 0.08) 100%
+        );
+      }
+
+      /* Info Cards */
+      .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .info-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 240, 232, 0.9) 100%);
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: var(--soft-shadow);
+        transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s;
+        border: 4px solid var(--primary-green);
+        background: linear-gradient(135deg, rgba(168, 197, 176, 0.15) 0%, rgba(255, 255, 255, 0.95) 100%);
+      }
+
+      .info-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--soft-shadow-lg);
+        background: linear-gradient(135deg, rgba(168, 197, 176, 0.25) 0%, rgba(255, 255, 255, 0.98) 100%);
+      }
+
+      .info-card h3 {
+        color: #000000;
+        font-size: 1.7rem;
+        margin-bottom: 1rem;
+        font-weight: normal;
+        letter-spacing: 1px;
+        position: relative;
+      }
+
+      .info-card h3::after {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 2px;
+        background: #000000;
+        margin-top: 8px;
+        opacity: 0.9;
+      }
+
+      .info-card p {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #000000;
+      }
+
+      .info-card strong {
+        color: #000000;
+        font-weight: bold;
+      }
+
+      /* Membership Section */
+      #membership {
+        background: linear-gradient(
+          180deg,
+          rgba(123, 153, 141, 0.25) 0%,
+          rgba(123, 153, 141, 0.20) 50%,
+          rgba(123, 153, 141, 0.15) 100%
+        );
+      }
+
+      /* Call to Action */
+      .cta-section {
+        background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+        color: var(--white);
+        text-align: center;
+        padding: 5rem 5%;
+        margin: 4rem 0;
+        box-shadow: 0 15px 40px rgba(123, 153, 141, 0.3);
+        border-radius: 12px;
+      }
+
+      .cta-section h2 {
+        font-size: 3.2rem;
+        margin-bottom: 1.5rem;
+        font-weight: normal;
+        letter-spacing: 3px;
+      }
+
+      .cta-section p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 1rem 3rem;
+        background: linear-gradient(180deg, var(--white), #f9f7f2);
+        color: var(--primary-green);
+        text-decoration: none;
+        border-radius: 999px;
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.25s ease;
+        border: 2px solid var(--white);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        background: linear-gradient(120deg, var(--primary-brown), var(--primary-green));
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn:focus-visible {
+        outline: 3px solid rgba(214, 179, 106, 0.5);
+        outline-offset: 3px;
+      }
+
+      /* Schedule Section */
+      #schedule {
+        background: linear-gradient(
+          180deg,
+          rgba(123, 153, 141, 0.1) 0%,
+          rgba(151, 135, 142, 0.1) 50%,
+          rgba(123, 153, 141, 0.08) 100%
+        );
+      }
+
+      /* Resources Section */
+      #resources {
+        background: linear-gradient(
+          180deg,
+          rgba(151, 135, 142, 0.25) 0%,
+          rgba(151, 135, 142, 0.20) 50%,
+          rgba(151, 135, 142, 0.15) 100%
+        );
+      }
+
+      .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .resource-category {
+        background: linear-gradient(135deg, rgba(184, 159, 160, 0.12) 0%, rgba(255, 255, 255, 0.95) 100%);
+        padding: 2rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary-green);
+        box-shadow: var(--soft-shadow);
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+      }
+
+      .resource-category:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--soft-shadow-lg);
+        border-left-color: var(--primary-brown);
+        background: linear-gradient(135deg, rgba(168, 197, 176, 0.15) 0%, rgba(255, 255, 255, 0.98) 100%);
+      }
+
+      .resource-category h3 {
+        color: var(--primary-green);
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        font-weight: normal;
+        letter-spacing: 0.5px;
+      }
+
+      .resource-category ul {
+        list-style: none;
+      }
+
+      .resource-category li {
+        margin-bottom: 0.7rem;
+      }
+
+      .resource-category a {
+        color: var(--charcoal);
+        text-decoration: none;
+        transition: color 0.3s, padding-left 0.3s;
+        font-size: 1.1rem;
+        display: inline-block;
+      }
+
+      .resource-category a:hover {
+        color: var(--primary-brown);
+        padding-left: 8px;
+      }
+
+      /* Contact Section */
+      #contact {
+        background: linear-gradient(
+          180deg,
+          rgba(184, 159, 160, 0.12) 0%,
+          rgba(168, 197, 176, 0.1) 50%,
+          rgba(184, 159, 160, 0.08) 100%
+        );
+      }
+
+      .contact-form {
+        max-width: 700px;
+        margin: 3rem auto;
+        background: linear-gradient(135deg, rgba(168, 197, 176, 0.12) 0%, rgba(255, 255, 255, 0.95) 100%);
+        padding: 3rem;
+        border-radius: 14px;
+        box-shadow: var(--soft-shadow);
+        border: 2px solid var(--light-green);
+        transition: box-shadow 0.3s, background 0.3s;
+      }
+
+      .contact-form:focus-within {
+        box-shadow: var(--soft-shadow-lg);
+        background: linear-gradient(135deg, rgba(168, 197, 176, 0.2) 0%, rgba(255, 255, 255, 0.98) 100%);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--primary-green);
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--light-sage);
+        border-radius: 10px;
+        font-family: "Georgia", serif;
+        font-size: 1.1rem;
+        transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        background: #fafafa;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-green);
+        box-shadow: 0 0 0 4px rgba(123, 153, 141, 0.15);
+        background: #ffffff;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 150px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 1.2rem;
+        background: linear-gradient(120deg, var(--primary-green), var(--dark-green));
+        color: var(--white);
+        border: none;
+        border-radius: 999px;
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0 10px 25px rgba(123, 153, 141, 0.3);
+        font-weight: 600;
+      }
+
+      .submit-btn:hover {
+        background: linear-gradient(120deg, var(--dark-green), var(--primary-brown));
+        transform: translateY(-2px);
+        box-shadow: 0 15px 35px rgba(123, 153, 141, 0.4);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(135deg, var(--primary-brown) 0%, #7D6B75 100%);
+        color: var(--white);
+        padding: 3rem 5%;
+        text-align: center;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-links a {
+        color: var(--white);
+        text-decoration: none;
+        font-size: 1.9rem;
+        transition: color 0.3s, transform 0.2s;
+      }
+
+      .social-links a:hover {
+        color: var(--warm-accent);
+        transform: translateY(-3px);
+      }
+
+      footer p {
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
+      }
+
+      /* Calendar Styles */
+      .calendar-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, rgba(184, 159, 160, 0.1) 0%, rgba(168, 197, 176, 0.1) 50%, rgba(255, 255, 255, 0.95) 100%);
+        border-radius: 14px;
+        box-shadow: var(--soft-shadow);
+        padding: 2rem;
+        border: 2px solid var(--light-green);
+        transition: box-shadow 0.3s, background 0.3s;
+      }
+
+      .calendar-container:hover {
+        box-shadow: var(--soft-shadow-lg);
+      }
+
+      .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .calendar-header h3 {
+        font-size: 1.9rem;
+        color: var(--primary-brown);
+        font-weight: normal;
+        letter-spacing: 1px;
+      }
+
+      .calendar-header button {
+        background: linear-gradient(120deg, var(--primary-green), var(--dark-green));
+        color: var(--white);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 1.3rem;
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0 6px 12px rgba(123, 153, 141, 0.25);
+        font-weight: 600;
+      }
+
+      .calendar-header button:hover {
+        background: linear-gradient(120deg, var(--dark-green), var(--primary-brown));
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(123, 153, 141, 0.35);
+      }
+
+      .calendar-header button:active {
+        transform: translateY(0);
+      }
+
+      .weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        font-weight: bold;
+        color: var(--primary-green);
+        padding: 12px 0;
+        border-bottom: 2px solid var(--light-green);
+        margin-bottom: 1rem;
+        background: linear-gradient(
+          90deg,
+          rgba(123, 153, 141, 0.08),
+          rgba(151, 135, 142, 0.08)
+        );
+        border-radius: 8px 8px 0 0;
+      }
+
+      .weekdays span {
+        padding: 8px 4px;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-top: 1rem;
+        grid-auto-rows: 120px;
+      }
+
+      .day {
+        min-height: 120px;
+        padding: 8px;
+        border: 2px solid var(--light-green);
+        background: linear-gradient(135deg, rgba(168, 197, 176, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+        border-radius: 8px;
+        position: relative;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .day:hover {
+        background: linear-gradient(135deg, rgba(123, 153, 141, 0.15) 0%, rgba(184, 159, 160, 0.08) 50%, rgba(255, 255, 255, 0.98) 100%);
+        box-shadow: 0 6px 14px rgba(123, 153, 141, 0.2);
+        border-color: var(--primary-green);
+      }
+
+      .day-number {
+        font-weight: bold;
+        color: var(--primary-brown);
+        margin-bottom: 6px;
+        display: block;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+
+      .day.today {
+        outline: 2px solid var(--warm-accent);
+        outline-offset: -2px;
+        background: linear-gradient(135deg, #fffaf0 0%, #fffff5 100%);
+      }
+
+      .empty-day {
+        background: #eee;
+        border: 1px solid #ddd;
+        opacity: 0.3;
+      }
+
+      .empty-day:hover {
+        background: #eee;
+        box-shadow: none;
+      }
+
+      .event {
+        background: linear-gradient(135deg, var(--primary-brown), #8B7A82);
+        color: var(--white);
+        padding: 8px 10px;
+        margin-bottom: 4px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        cursor: help;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        word-wrap: break-word;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+        flex-shrink: 0;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        font-weight: 600;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .event:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .event[data-event-type="journal"] {
+        background: linear-gradient(135deg, var(--primary-green), #6B8A75);
+      }
+
+      .event[data-event-type="open"] {
+        background: linear-gradient(135deg, var(--primary-brown), #8B7A82);
+      }
+
+      .event[data-event-type="dyeing"] {
+        background: linear-gradient(135deg, #5d98c9, #4a7fa3);
+      }
+
+      .event[data-event-type="sale-prep"],
+      .event[data-event-type="planning"] {
+        background: linear-gradient(135deg, #4a4a4a, #2a2a2a);
+      }
+
+      .event[data-event-type="sale"] {
+        background: linear-gradient(135deg, #8a3a3a, #6b2e2e);
+      }
+
+      /* Chatbot Widget */
+      .chatbot-widget {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+      }
+
+      .chatbot-bubble {
+        background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+        color: var(--white);
+        padding: 12px 20px;
+        border-radius: 20px 20px 4px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        max-width: 280px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        animation: slideInRight 0.5s ease-out;
+        display: none;
+      }
+
+      .chatbot-bubble.show {
+        display: block;
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .chatbot-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(123, 153, 141, 0.4);
+        transition: all 0.3s ease;
+        font-size: 2.5rem;
+        animation: bounce 2s infinite;
+      }
+
+      .chatbot-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(123, 153, 141, 0.5);
+      }
+
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 968px) {
+        .logo img {
+          height: 80px; 
+        }
+         
+        /* Adjusted for mobile */
+        .guild-name {
+          font-size: 1.1rem; 
+        }
+
+        .nav-links {
+          position: fixed;
+          left: -100%;
+          top: 100px; 
+          flex-direction: column;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 240, 232, 0.98));
+          width: 100%;
+          text-align: center;
+          transition: 0.3s;
+          box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
+          padding: 2rem 0;
+        }
+
+        .nav-links.active {
+          left: 0;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .image-text-section {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+
+        .image-side {
+          min-height: 300px;
+        }
+
+        /* Responsive typography updates */
+        .hero-title {
+          font-size: 2.2rem;
+          white-space: normal; /* Allow wrap on tablet */
+        }
+
+        .hero-quote {
+          font-size: 2.5rem;
+        }
+
+        .vision-statement {
+          font-size: 1.4rem;
+          padding: 2rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .chatbot-widget {
+          bottom: 20px;
+          right: 20px;
+        }
+
+        .chatbot-icon {
+          width: 60px;
+          height: 60px;
+          font-size: 2rem;
+        }
+
+        .chatbot-bubble {
+          max-width: 220px;
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .logo img {
+          height: 60px;
+        }
+
+        .guild-name {
+          font-size: 1rem;
+          white-space: normal; /* Allow wrapping on very small screens */
+        }
+
+        .hero {
+          height: 70vh;
+        }
+
+        .hero-title {
+          font-size: 1.8rem;
+          white-space: normal;
+        }
+
+        .hero-quote {
+          font-size: 1.8rem;
+        }
+
+        .vision-statement {
+          font-size: 1.2rem;
+          padding: 1.5rem;
+        }
+
+        .section {
+          padding: 4rem 5%;
+        }
+
+        .text-side {
+          padding: 2rem;
+        }
+
+        .contact-form {
+          padding: 2rem;
+        }
+
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .gallery-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .day {
+          min-height: 100px;
+          padding: 6px;
+          font-size: 0.85rem;
+        }
+
+        .day-number {
+          font-size: 1.1rem;
+          margin-bottom: 4px;
+        }
+
+        .event {
+          font-size: 0.75rem;
+          padding: 6px 8px;
+        }
+
+        .chatbot-widget {
+          bottom: 15px;
+          right: 15px;
+        }
+
+        .chatbot-icon {
+          width: 55px;
+          height: 55px;
+          font-size: 1.8rem;
+        }
+
+        .chatbot-bubble {
+          max-width: 200px;
+          font-size: 0.85rem;
+        }
+      }
+
+      /* Respect reduced motion preferences */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <div class="logo">
+          <a href="#home" aria-label="Textile Surface Design Guild Home">
+            <img src="Tsdg logo.png" alt="Textile Surface Design Guild Logo" />
+          </a>
+          <div class="logo-text-container">
+            <span class="guild-name">Textile Surface Design Guild</span>
+          </div>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+ <section id="home" class="hero" style="background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.25)), url('coverphoto.jpg');">
+      <div class="hero-content">
+        <p class="hero-quote">
+          Everyone has a space to be creative in textile and fiber art.
+        </p>
+         
+        <h1 class="hero-title">TEXTILE SURFACE DESIGN GUILD</h1>
+        <p class="hero-location">Lethbridge, Alberta</p>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2 class="section-title">About Us</h2>
+      <div class="image-text-section our-story-section">
+        <div class="text-side">
+          <h2>Our Story</h2>
+          <p>
+            The Textile Surface Design Guild is comprised of a group of artists
+            working in a variety of surface design techniques, both individually
+            and as a group. We are united in our passion to explore the artistic
+            potential of fibre and textiles.
+          </p>
+          <p>
+            The guild offers the opportunity for members to work at their own
+            pace in an encouraging and supportive environment. The sharing and
+            exploration of techniques and processes is an important part of
+            guild membership.
+          </p>
+        </div>
+        <div class="image-side">
+          <img src="OurStory.jpg" alt="Our Story - Textile Surface Design" />
+        </div>
+      </div>
+
+      <div class="image-text-section where-we-meet-section">
+        <div class="image-side">
+          <img src="Where we Meet.jpg" alt="Where We Meet - Textile Studio at CASA" />
+        </div>
+        <div class="text-side">
+          <h2>Where We Meet</h2>
+          <p>
+            Our guild meets at the textile studio at Casa, the new arts facility
+            in Lethbridge, Alberta. This studio offers a safe, up-to-date work
+            area.
+          </p>
+          <p>
+            Programs are offered twice monthly and occasional workshops with
+            well-known textile artists. Come explore techniques including
+            dyeing, fabric painting, silkscreen, batik, stamping, stenciling,
+            felting, collage, embellishment, and painting and dyeing other
+            surfaces including paper, glass and wood.
+          </p>
+          <p>
+            Members are encouraged to bring current projects, finished and in
+            process, to each meeting and program to share with the group.
+            Whether it is a completed piece or in the progress of discovery, we
+            would love to see it!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="membership" class="section">
+      <h2 class="section-title">Membership & Meetings</h2>
+      <p
+        style="
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto 3rem;
+          font-size: 1.3rem;
+          color: #3A3A3A;
+          line-height: 1.8;
+        "
+      >
+        Our guild has an active membership throughout the Lethbridge and
+        surrounding area. We are always interested in sharing our inspirations
+        and artistry with the community and new members.
+      </p>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <h3>Meeting Schedule</h3>
+          <p><strong>Second Wednesday:</strong> 7 – 9 pm</p>
+          <p><strong>Fourth Saturday:</strong> 1 – 4 pm</p>
+          <p style="margin-top: 1rem">
+            The textile studio is at
+            CASA, 230 8th Street South, Lethbridge, Alberta.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>Try Before You Join</h3>
+          <p>
+            Anyone interested in the guild is invited to join us at a program at
+            no cost.
+          </p>
+          <p style="margin-top: 1rem">
+            <strong>Annual membership is $60</strong> and includes all of our
+            programs as well as one open studio day a month.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>New Members Welcome</h3>
+          <p>
+            New members are always welcome. Previous experience is not required
+            to join the guild.
+          </p>
+          <p style="margin-top: 1rem">
+            To purchase our work, please email
+            surfacedesignlethbridge@gmail.com to coordinate
+            payment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule" class="section">
+      <h2 class="section-title">Upcoming Schedule</h2>
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <button onclick="changeMonth(-1)">&#9664; Prev</button>
+          <h3 id="currentMonthYear">October 2025</h3>
+          <button onclick="changeMonth(1)">Next &#9654;</button>
+        </div>
+        <div class="weekdays">
+          <span>Sun</span>
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+    </section>
+
+    <div class="cta-section">
+      <h2>Join Our Creative Community</h2>
+      <p>
+        Whether you're an experienced textile artist or just beginning your
+        creative journey, we welcome you to explore the world of surface design
+        with us.
+      </p>
+      <a href="#contact" class="btn">Get In Touch</a>
+    </div>
+
+    <section id="gallery" class="section">
+      <h2 class="section-title">Gallery</h2>
+      <p
+        style="text-align: center; max-width: 700px; margin: 0 auto 2rem; font-style: italic; font-size: 1.25rem; color: #3A3A3A;"
+      >
+        Showcasing the diverse and beautiful work of our talented guild members
+      </p>
+
+      <div class="gallery-cards">
+        <a href="pages/gallery/embellishment-detail.html" class="gallery-card">
+          <img src="Images/Embellishment & Detail/01.JPG" alt="Embellishment & Detail Collection" />
+          <div class="gallery-card-overlay">
+            <h3>Embellishment & Detail</h3>
+            <p>View Collection</p>
+          </div>
+        </a>
+
+        <a href="pages/gallery/fabric-dying.html" class="gallery-card">
+          <img src="Images/Fabric Dying Techniques/01.jpg" alt="Fabric Dying Techniques Collection" />
+          <div class="gallery-card-overlay">
+            <h3>Fabric Dying Techniques</h3>
+            <p>View Collection</p>
+          </div>
+        </a>
+
+        <a href="pages/gallery/featured-works.html" class="gallery-card">
+          <img src="Images/Featured Works/01.jpg" alt="Featured Works Collection" />
+          <div class="gallery-card-overlay">
+            <h3>Featured Works</h3>
+            <p>View Collection</p>
+          </div>
+        </a>
+
+        <a href="pages/gallery/mixed-media.html" class="gallery-card">
+          <img src="Images/Mixed Media/01.jpg" alt="Mixed Media Collection" />
+          <div class="gallery-card-overlay">
+            <h3>Mixed Media</h3>
+            <p>View Collection</p>
+          </div>
+        </a>
+
+        <a href="pages/gallery/modern-felt.html" class="gallery-card">
+          <img src="Images/Modern Felt/01.jpeg" alt="Modern Felt Collection" />
+          <div class="gallery-card-overlay">
+            <h3>Modern Felt</h3>
+            <p>View Collection</p>
+          </div>
+        </a>
+
+        <a href="pages/gallery/printed-textiles.html" class="gallery-card">
+          <img src="Images/Printed Textiles/02.jpg" alt="Printed Textiles Collection" />
+          <div class="gallery-card-overlay">
+            <h3>Printed Textiles</h3>
+            <p>View Collection</p>
+          </div>
+        </a>
+      </div>
+    </section>
+     
+    <section id="resources" class="section">
+      <h2 class="section-title">Resources</h2>
+
+      <div class="resources-grid">
+        <div class="resource-category">
+          <h3>Affiliations</h3>
+          <ul>
+            <li><a href="https://artslethbridge.org/">Allied Arts Council of Lethbridge</a></li>
+            <li><a href="https://casalethbridge.ca/">Casa Lethbridge</a></li>
+            <li><a href="https://www.affta.ab.ca/">Alberta Foundation for the Arts</a></li>
+            <li><a href="https://bevmazurick.com/">Bev Mazurick</a></li>
+          </ul>
+        </div>
+
+        <div class="resource-category">
+          <h3>Guild Resources</h3>
+          <ul>
+            <li><a href="https://drive.google.com/file/u/1/d/17guZBTkHtTQK-H1KHpzn_LD_NRKMkz-H/view?usp=drive_link">New Members Form</a></li>
+            <li><a href="https://casalethbridge.ca/art-studios/textile-studio/">Textile Studio/2D Studio</a></li>
+            <li><a href="https://www.surfacedesignlethbridge.ca/wp-content/uploads/2015/05/Textile-Studio-Protocol-1.pdf">Textile Studio Protocols</a></li>
+            <li><a href="https://www.surfacedesignlethbridge.ca/wp-content/uploads/2013/02/2017-8-SALES-GUIDELINES-TSDGpdf.pdf">Sales Guidelines</a></li>
+            <li><a href="https://www.surfacedesignlethbridge.ca/wp-content/uploads/2013/02/TSDG-Exhibition-Guidelines-17-8pdf.pdf">Exhibition Guidelines</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact Us</h2>
+      <p style="text-align: center; max-width: 700px; margin: 0 auto 2rem; font-size: 1.3rem; color: #3A3A3A; line-height: 1.8;">
+        Have questions about membership, workshops, or purchasing artwork? We'd
+        love to hear from you!
+      </p>
+
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" required />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+
+      <div style="text-align: center; margin-top: 3rem">
+        <p style="font-size: 1.3rem; margin-bottom: 1rem; color: #3A3A3A;">
+          <strong>Email:</strong> surfacedesignlethbridge@gmail.com
+        </p>
+        <p style="font-size: 1.3rem; color: #3A3A3A;">
+          <strong>Location:</strong> CASA, 230 8th Street South, Lethbridge, AB,
+          T1J 5H2
+        </p>
+      </div>
+    </section>
+<div class="chatbot-widget">
+  <div class="chatbot-bubble" id="chatbotBubble">
+    👋 Welcome to the Textile Surface Design Guild!<br>
+    Scroll through to explore our programs, events, and membership information.
+  </div>
+  <div class="chatbot-icon" onclick="toggleChatbot()" title="Chat with us!">
+    🎨
+  </div>
+</div>
+
+    <footer>
+      <div class="footer-content">
+        <div class="social-links">
+          <a href="https://www.instagram.com/surfacedesign.lethbridge?igsh=MXR6emxwMWs4cGFpcA==" title="Instagram">📷</a>
+          <a href="https://www.facebook.com/share/g/1GLKhE8Nx6/" title="Facebook">f</a>
+          <a href="mailto:surfacedesignlethbridge@gmail.com" title="Email">✉</a>
+        </div>
+        <p>Textile Surface Design Guild</p>
+        <p>Lethbridge, Alberta</p>
+        <p style="margin-top: 2rem; font-size: 0.95rem">
+          &copy; 2025 Textile Surface Design Guild. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+
+      function handleSubmit(event) {
+        event.preventDefault();
+
+        // Capture form data
+        const recipient = "surfacedesignlethbridge@gmail.com";
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+
+        // Construct the email body
+        // Since mailto comes from the user's email client, we include their name and email in the body text so you know who sent it.
+        const bodyContent = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+        // Create the mailto link with encoded parameters to handle special characters
+        const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(
+          subject
+        )}&body=${encodeURIComponent(bodyContent)}`;
+
+        // Open the default email client
+        window.location.href = mailtoLink;
+      }
+
+      // Chatbot functionality
+      let chatbotShown = false;
+       
+      function toggleChatbot() {
+        const bubble = document.getElementById("chatbotBubble");
+        if (chatbotShown) {
+          bubble.classList.remove("show");
+          chatbotShown = false;
+        } else {
+          bubble.classList.add("show");
+          chatbotShown = true;
+        }
+      }
+
+      // Show chatbot greeting after 2 seconds
+      setTimeout(() => {
+        const bubble = document.getElementById("chatbotBubble");
+        bubble.classList.add("show");
+        chatbotShown = true;
+        
+        // Auto-hide after 8 seconds
+        setTimeout(() => {
+          bubble.classList.remove("show");
+          chatbotShown = false;
+        }, 8000);
+      }, 2000);
+
+      let currentDate = new Date(2025, 9, 1);
+
+      const events = {
+        "2025-10-08": [
+          {
+            title: "Journal Making: Creating Signatures",
+            time: "7-9pm",
+            type: "journal",
+            link: "pages/events/2025-10-08-journal-making.html"
+          },
+        ],
+        "2025-10-19": [
+          {
+            title: "Open Studio: Completing Nature Journals",
+            time: "All Day",
+            type: "open",
+            link: "pages/events/2025-10-19-open-studio.html"
+          },
+        ],
+        "2025-10-25": [
+          { 
+            title: "Indigo Dyeing", 
+            time: "1-4pm", 
+            type: "dyeing",
+            link: "pages/events/2025-10-25-indigo-dyeing.html"
+          },
+        ],
+        "2025-11-12": [
+          {
+            title: "Preparation for Christmas at Casa Sale",
+            time: "7-9 pm",
+            type: "sale-prep",
+            link: "pages/events/2025-11-12-preparation.html"
+          },
+        ],
+        "2025-11-15": [
+          { 
+            title: "Christmas at Casa Sale", 
+            time: "5-9 pm", 
+            type: "sale",
+            link: "pages/events/2025-11-15-christmas-sale.html"
+          },
+        ],
+        "2025-11-16": [
+          { 
+            title: "Christmas at Casa Sale", 
+            time: "10-5pm", 
+            type: "sale",
+            link: "pages/events/2025-11-16-christmas-sale-day2.html"
+          },
+        ],
+        "2025-11-22": [
+          {
+            title: "Strategic Planning Session",
+            time: "All Day",
+            type: "planning",
+            link: "pages/events/2025-11-22-planning.html"
+          },
+        ],
+      };
+
+      function renderCalendar() {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+
+        const monthNames = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        document.getElementById(
+          "currentMonthYear"
+        ).innerText = `${monthNames[month]} ${year}`;
+
+        const calendarGrid = document.getElementById("calendarGrid");
+        calendarGrid.innerHTML = "";
+
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        for (let i = 0; i < firstDayOfMonth; i++) {
+          const emptyDay = document.createElement("div");
+          emptyDay.classList.add("day", "empty-day");
+          calendarGrid.appendChild(emptyDay);
+        }
+
+        const today = new Date();
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayDiv = document.createElement("div");
+          dayDiv.classList.add("day");
+
+          const dayNumber = document.createElement("span");
+          dayNumber.classList.add("day-number");
+          dayNumber.innerText = day;
+          dayDiv.appendChild(dayNumber);
+
+          const dateKey = `${year}-${String(month + 1).padStart(
+            2,
+            "0"
+          )}-${String(day).padStart(2, "0")}`;
+
+          if (
+            year === today.getFullYear() &&
+            month === today.getMonth() &&
+            day === today.getDate()
+          ) {
+            dayDiv.classList.add("today");
+          }
+
+          if (events[dateKey]) {
+            events[dateKey].forEach((event) => {
+              const eventDiv = document.createElement("div");
+              eventDiv.classList.add("event");
+              eventDiv.setAttribute("data-event-type", event.type);
+              eventDiv.setAttribute("title", `${event.title} (${event.time})`);
+
+              const timeSpan = document.createElement("div");
+              timeSpan.style.fontWeight = "bold";
+              timeSpan.style.fontSize = "0.9rem";
+              timeSpan.textContent = event.time;
+
+              const titleSpan = document.createElement("div");
+              titleSpan.style.fontSize = "0.9rem";
+              titleSpan.style.marginTop = "3px";
+              titleSpan.textContent = event.title;
+
+              eventDiv.appendChild(timeSpan);
+              eventDiv.appendChild(titleSpan);
+
+              eventDiv.addEventListener("click", function (e) {
+                e.stopPropagation();
+                if (event.link) {
+                  window.location.href = event.link;
+                }
+              });
+
+              dayDiv.appendChild(eventDiv);
+            });
+          }
+
+          calendarGrid.appendChild(dayDiv);
+        }
+
+        const cellsRendered = firstDayOfMonth + daysInMonth;
+        const trailingEmpty = (7 - (cellsRendered % 7)) % 7;
+        for (let i = 0; i < trailingEmpty; i++) {
+          const emptyDay = document.createElement("div");
+          emptyDay.classList.add("day", "empty-day");
+          calendarGrid.appendChild(emptyDay);
+        }
+      }
+
+      function changeMonth(delta) {
+        const newMonth = currentDate.getMonth() + delta;
+        const newDate = new Date(currentDate.getFullYear(), newMonth, 1);
+        currentDate = newDate;
+        renderCalendar();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCalendar();
+      });
+    </script>
+  </body>
+</html>
